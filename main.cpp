@@ -17,5 +17,7 @@ int main() {
     TransactionSimulator synchronizedSimulation(10, true);
     unsynchronizedSimulation.runSimulation(3);
 
+    // Test!
+
     return 0;
 }
