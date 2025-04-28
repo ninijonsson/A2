@@ -20,6 +20,7 @@ class Client {
         BankAccount& account; // Referens till bankkonto, ska vara en och samma
         thread clientThread;
         atomic<bool> stopSignal;
+        mutex mtx;
 
         void run(); // Trådmetod
 
@@ -31,7 +32,7 @@ class Client {
         void start();
         void stop();
         void join();
-        double getTotalTransactions() const;
+        double getTotalTransactions();
 };
 
 #endif //CLIENT_H

@@ -2,26 +2,20 @@
 
 using namespace std;
 
-#include <iostream>
-#include <thread>
-
-int counter = 0;
-mutex mtx;
-
-void increment() {
-    for (int i = 0; i < 100000; ++i) {
-        // lock_guard<mutex> lock(mtx);
-        // Utan mutex kommer det bli fel värde på counter
-        ++counter;
-    }
-}
+#include "TransactionSimulator.h"
 
 int main() {
-    thread t1(increment); // Skapa tråd
-    thread t2(increment);
-    t1.join();
-    t2.join();
+    // Fall 1: Utan mutex
+    cout << "UNSYNCHRONIZED SIMULATION" << endl;
+    TransactionSimulator unsynchronizedSimulation(10, false);
+    unsynchronizedSimulation.runSimulation(3);
 
-    cout << "Counter: " << counter << endl;
+    cout << " " << endl;
+
+    // Fall 2: Med mutex
+    cout << "SYNCHRONIZED SIMULATION" << endl;
+    TransactionSimulator synchronizedSimulation(10, true);
+    unsynchronizedSimulation.runSimulation(3);
+
     return 0;
 }

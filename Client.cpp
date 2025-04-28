@@ -6,6 +6,7 @@
 #include <random> // För alla random deposits och withdrawals
 #include <chrono> // Används för tid såsom sekunder
 #include <thread> // För att kunna göra det multitrådat
+#include <iostream>
 
 using namespace std;
 
@@ -32,8 +33,9 @@ void Client::join()
     clientThread.join();
 }
 
-double Client::getTotalTransactions() const
+double Client::getTotalTransactions()
 {
+    lock_guard<mutex> lock(mtx);
     return totalTransactions;
 }
 
@@ -42,7 +44,7 @@ void Client::run()
 {
     random_device random; // Random siffra
     mt19937 randomGenerator(random());
-    uniform_real_distribution<double> randomAmount(0.0, 100.0);
+    uniform_real_distribution<double> randomAmount(10.0, 100.0);
     uniform_int_distribution<int> depositOrWithdrawal(0, 1);
 
     while (!stopSignal)
@@ -51,6 +53,7 @@ void Client::run()
         double amount = randomAmount(randomGenerator);
         bool toDeposit = depositOrWithdrawal(randomGenerator);
 
+        lock_guard<mutex> lock(mtx);
         if (mutexMode)
         {
             if (toDeposit)
@@ -76,6 +79,6 @@ void Client::run()
         }
 
         // Skapa race condition
-        this_thread::sleep_for(chrono::milliseconds(500));
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
 }
