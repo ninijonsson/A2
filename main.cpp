@@ -15,7 +15,7 @@ int main() {
     // Fall 2: Med mutex
     cout << "SYNCHRONIZED SIMULATION" << endl;
     TransactionSimulator synchronizedSimulation(10, true);
-    unsynchronizedSimulation.runSimulation(3);
+    synchronizedSimulation.runSimulation(3);
 
     return 0;
 }

@@ -44,13 +44,13 @@ void Client::run()
 {
     random_device random; // Random siffra
     mt19937 randomGenerator(random());
-    uniform_real_distribution<double> randomAmount(10.0, 100.0);
+    uniform_int_distribution<int> randomAmount(10, 100);
     uniform_int_distribution<int> depositOrWithdrawal(0, 1);
 
     while (!stopSignal)
     {
         // För varje iteration
-        double amount = randomAmount(randomGenerator);
+        int amount = randomAmount(randomGenerator);
         bool toDeposit = depositOrWithdrawal(randomGenerator);
 
         lock_guard<mutex> lock(mtx);

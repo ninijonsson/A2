@@ -51,7 +51,7 @@ void TransactionSimulator::runSimulation(int durationSeconds)
     }
 
     // Faktiskta outcome
-    double actual = mutexMode ? account.getBalanceMutex() : account.getBalance();
+    int actual = mutexMode ? account.getBalanceMutex() : account.getBalance();
     double difference = expected - actual;
 
     cout << "SIMULATION RESULTS:" << endl;
