@@ -16,4 +16,5 @@ add_executable(A2 main.cpp
         part_2/AccountNoDeadlock.h
         part_2/Account.cpp
         part_2/Account.h
+        main.h
 )
